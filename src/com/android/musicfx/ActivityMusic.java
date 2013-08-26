@@ -226,9 +226,13 @@ public class ActivityMusic extends Activity implements OnSeekBarChangeListener {
         Log.v(TAG, "audio session: " + mAudioSession);
 
         mCallingPackageName = getCallingPackage();
-
+		if (mCallingPackageName == null && getCallingActivity() != null){
+        	mCallingPackageName = getCallingActivity().getPackageName();
+		}
+		
         // check for errors
         if (mCallingPackageName == null) {
+
             Log.e(TAG, "Package name is null");
             setResult(RESULT_CANCELED);
             finish();
