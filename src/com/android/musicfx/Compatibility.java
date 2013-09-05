@@ -128,16 +128,18 @@ public class Compatibility {
             }
 
             Intent packageIntent = intent.getParcelableExtra("reason");
-            Bundle b = packageIntent.getExtras();
-            if (b != null) b.size();
-            log("intentservice saw: " + packageIntent + " " + b);
-            // TODO, be smarter about package upgrades (which results in three
-            // broadcasts: removed, added, replaced)
-            Uri packageUri = packageIntent.getData();
-            String updatedPackage = null;
-            if (packageUri != null) {
-                updatedPackage = packageUri.toString().substring(8);
-                pickDefaultControlPanel(updatedPackage);
+            if (packageIntent!=null){
+                Bundle b = packageIntent.getExtras();
+                if (b != null) b.size();
+                log("intentservice saw: " + packageIntent + " " + b);
+                // TODO, be smarter about package upgrades (which results in three
+                // broadcasts: removed, added, replaced)
+                Uri packageUri = packageIntent.getData();
+                String updatedPackage = null;
+                if (packageUri != null) {
+                    updatedPackage = packageUri.toString().substring(8);
+                    pickDefaultControlPanel(updatedPackage);
+                }
             }
         }
 

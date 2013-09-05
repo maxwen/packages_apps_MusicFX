@@ -109,8 +109,11 @@ public class ControlPanelPicker extends AlertActivity implements OnClickListener
             Intent updateIntent = new Intent(this, Service.class);
             Cursor c = mAlertParams.mCursor;
             c.moveToPosition(mClickedPos);
-            updateIntent.putExtra("defPackage", c.getString(2));
-            updateIntent.putExtra("defName", c.getString(3));
+            try {
+                updateIntent.putExtra("defPackage", c.getString(2));
+                updateIntent.putExtra("defName", c.getString(3));
+            } catch(android.database.CursorIndexOutOfBoundsException e){
+            }
             startService(updateIntent);
         }
     }
